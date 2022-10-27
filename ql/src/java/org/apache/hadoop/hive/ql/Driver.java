@@ -605,6 +605,7 @@ public class Driver implements IDriver {
       ASTNode tree;
       try {
         tree = ParseUtils.parse(command, ctx);
+        console.printInfo("tree: %s", String.valueOf(tree));
       } catch (ParseException e) {
         parseError = true;
         throw e;
@@ -1668,8 +1669,7 @@ public class Driver implements IDriver {
 
     PerfLogger perfLogger = SessionState.getPerfLogger();
     perfLogger.PerfLogBegin(CLASS_NAME, PerfLogger.WAIT_COMPILE);
-    final ReentrantLock compileLock = tryAcquireCompileLock(isParallelEnabled,
-      command);
+    final ReentrantLock compileLock = tryAcquireCompileLock(isParallelEnabled, command);
     perfLogger.PerfLogEnd(CLASS_NAME, PerfLogger.WAIT_COMPILE);
     if (metrics != null) {
       metrics.decrementCounter(MetricsConstant.WAITING_COMPILE_OPS, 1);

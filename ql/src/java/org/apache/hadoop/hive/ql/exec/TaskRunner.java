@@ -76,8 +76,7 @@ public class TaskRunner extends Thread {
       runSequential();
     } finally {
       try {
-        // Call Hive.closeCurrent() that closes the HMS connection, causes
-        // HMS connection leaks otherwise.
+        // 调用Hive.closeCurrent()关闭HMS连接，否则会导致HMS连接泄漏。
         Hive.closeCurrent();
       } catch (Exception e) {
         LOG.warn("Exception closing Metastore connection:" + e.getMessage());
@@ -88,7 +87,7 @@ public class TaskRunner extends Thread {
   }
 
   /**
-   * Launches a task, and sets its exit value in the result variable.
+   * 启动一个任务，并在结果变量中设置其退出值
    */
 
   public void runSequential() {

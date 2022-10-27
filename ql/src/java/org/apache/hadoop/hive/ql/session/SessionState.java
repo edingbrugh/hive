@@ -572,9 +572,7 @@ public class SessionState {
   }
 
   /**
-   * set current session to existing session object if a thread is running
-   * multiple sessions - it must call this method with the new session object
-   * when switching from one session to another.
+   * 如果线程正在运行多个会话，则将当前会话设置为现有会话对象——当从一个会话切换到另一个会话时，它必须使用新的会话对象调用此方法。
    */
   public static SessionState start(SessionState startSs) {
     start(startSs, false, null);
@@ -605,13 +603,12 @@ public class SessionState {
       if (startSs.getConf().getBoolVar(HiveConf.ConfVars.HIVE_SESSION_HISTORY_ENABLED)) {
         startSs.hiveHist = new HiveHistoryImpl(startSs);
       } else {
-        // Hive history is disabled, create a no-op proxy
+        // Hive历史记录被禁用，创建一个无操作代理
         startSs.hiveHist = HiveHistoryProxyHandler.getNoOpHiveHistoryProxy();
       }
     }
 
-    // Get the following out of the way when you start the session these take a
-    // while and should be done when we start up.
+    // 当你开始会话的时候，不要去做下面的事情，这些事情需要一段时间，应该在我们开始的时候完成。
     try {
       UserGroupInformation sessionUGI = Utils.getUGI();
       FileSystem.get(startSs.sessionConf);
